@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="webapp.dao.DeptDao">
+	<select id="selectByDeptno" resultType="webapp.model.Dept"
+		parameterType="int">
+		SELECT *
+		FROM dept
+		WHERE deptno = #{deptno}
+	</select>
+	<select id="selectByDeptnoWithEmps" resultMap="deptWithEmps">
+		SELECT *
+		FROM dept d
+		left JOIN emp e
+		ON d.deptno = e.deptno
+		where d.deptno = #{deptno}
+
+	</select>
+
+
+	<resultMap type="webapp.model.Dept" id="deptWithEmps">
+		<id property="deptno" column="deptno" />
+		<result property="dname" column="dname" />
+		<result property="loc" column="loc" />
+		<collection property="emps" ofType="webapp.model.Emp">
+			<id property="empno" column="empno" />
+			<result property="ename" column="ename" />
+			<result property="job" column="job" />
+			<result property="mgr" column="mgr" />
+			<result property="hiredate" column="hiredate" />
+			<result property="sal" column="sal" />
+			<result property="comm" column="sal" />
+		</collection>
+	</resultMap>
+
+
+</mapper>

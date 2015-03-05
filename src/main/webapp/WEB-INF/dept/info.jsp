@@ -4,7 +4,7 @@
 <!DOCTYPE>
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>info.jsp</title>
 </head>
 <body>

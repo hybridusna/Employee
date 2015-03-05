@@ -14,7 +14,7 @@ public class PropertiesTest {
 		
 		//FileInputStream inStream = new FileInputStream("db.properties");
 		
-		InputStream inStream = PropertiesTest.class.getResourceAsStream("/webapp/resource/db.properties");
+		InputStream inStream = PropertiesTest.class.getResourceAsStream("/webapp/spring/db.properties");
 		
 		dbprop.load(inStream);
 		

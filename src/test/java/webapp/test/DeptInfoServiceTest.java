@@ -31,7 +31,7 @@ public class DeptInfoServiceTest {
 	ApplicationContext factory;
 
 	@Test
-	public void testGetDeptInfo() {
+	public void test1_GetDeptInfo() {
 		log.info("### testGetDeptInfo");
 
 		DeptInfoService service = factory.getBean(DeptInfoService.class);
@@ -50,7 +50,7 @@ public class DeptInfoServiceTest {
 	}
 
 	@Test
-	public void tsetGetDeptInfoWithEmps() {
+	public void tset2_GetDeptInfoWithEmps() {
 		log.info("###@@@ tsetGetDeptInfoWithEmps");
 
 		DeptInfoService service = factory.getBean(DeptInfoService.class);
@@ -66,6 +66,18 @@ public class DeptInfoServiceTest {
 		}
 
 		log.info("##################################");
+	}
+	
+	@Test
+	public void test3_GetDeptInfoAll(){
+		DeptInfoService service = factory.getBean(DeptInfoService.class);
+		List<Dept> list = service.getDeptInfoAll();
+		assertNotNull(list);
+		log.info("####################################");
+		log.info("testGetDeptInfoAll()");
+		for(Dept d : list){
+			log.info(d.getDeptno() + " " + d.getDname()+" " + d.getLoc());
+		}
 	}
 
 }

@@ -2,7 +2,8 @@
 <%@page import="java.util.List"%>
 <%@page import="webapp.model.Dept"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -26,6 +27,13 @@ Loc    = ${requestScope.dept.loc } <br>
 	}
 
 %>
+
+<hr>
+<c:forEach var="e" items="${requestScope.dept.emps}">
+	${pageScope.e.empno}, 
+	${pageScope.e.ename}, 
+	${pageScope.e.job }
+</c:forEach>
 
 
 

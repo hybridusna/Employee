@@ -23,7 +23,7 @@ import webapp.model.Emp;
 import webapp.service.DeptInfoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:/webapp/resource/beans.xml")
+@ContextConfiguration("classpath:/webapp/spring/beans.xml")
 public class DeptInfoServiceTest {
 
 	static Logger log = Logger.getLogger(DeptInfoServiceTest.class);

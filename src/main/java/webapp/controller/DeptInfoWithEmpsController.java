@@ -55,15 +55,17 @@ public class DeptInfoWithEmpsController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset = utf-8");
-		PrintWriter out = response.getWriter();
 		log.info("dept with emps called");
-		out.println("<h1>dept with emps called...</h1>");
+		
+		String param = request.getParameter("deptno");
+		
+		int deptno = 10;
+		deptno = Integer.parseInt(param);
 		
 		DeptInfoService service = factory.getBean(DeptInfoService.class);
-		Dept dept = service.getDeptInfoWithEmps(10);
+		Dept dept = service.getDeptInfoWithEmps(deptno);
 		request.setAttribute("dept", dept);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/dept/infowithemps.jsp");

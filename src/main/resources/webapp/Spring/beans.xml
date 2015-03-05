@@ -7,13 +7,13 @@
 
 <context:property-placeholder location = "classpath:/webapp/spring/db.properties"/>
 
-<!-- <bean id="dataSource" class ="org.springframework.jdbc.datasource.DriverManagerDataSource"> -->
-<!-- 	<property name="driverClassName" value="${oracle.className}"/> -->
-<!-- 	<property name="url" value="${oracle.url}"/> -->
-<!-- 	<property name="username" value ="${oracle.user}"/> -->
-<!-- 	<property name="password" value = "${oracle.password}"/> -->
+<bean id="dataSource" class ="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="${oracle.className}"/>
+	<property name="url" value="${oracle.url}"/>
+	<property name="username" value ="${oracle.user}"/>
+	<property name="password" value = "${oracle.password}"/>
 
-<!-- </bean> -->
+</bean>
 
 <bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
 	<property name="dataSource" ref ="dataSource"/>

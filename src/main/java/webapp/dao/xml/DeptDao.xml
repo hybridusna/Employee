@@ -20,12 +20,12 @@
 		FROM dept
 	</select>
 	
-	<select id="selectAllWithEmps" resultMap="deptWithEmps">
-		SELECT *
-		FROM dept d
-		left JOIN emp e
-		ON d.deptno = e.deptno
-	</select>
+<!-- 	<select id="selectAllWithEmps" resultMap="deptAllWithEmps"> -->
+<!-- 		SELECT * -->
+<!-- 		FROM dept d -->
+<!-- 		left JOIN emp e -->
+<!-- 		ON d.deptno = e.deptno -->
+<!-- 	</select> -->
 
 
 	<resultMap type="webapp.model.Dept" id="deptWithEmps">

@@ -1,4 +1,4 @@
-package webapp.test;
+package webapp.dao;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import webapp.dao.DeptDao;
 import webapp.model.Dept;
 import webapp.model.Emp;
 
@@ -22,40 +21,40 @@ import webapp.model.Emp;
 public class DeptDaoTest {
 
 	static Logger log = Logger.getLogger(DeptDaoTest.class);
-	
+
 	@Autowired
 	ApplicationContext factory;
-	
+
 	@Test
 	public void test1_SelectByDeptno() throws SQLException {
 		DeptDao dao = factory.getBean(DeptDao.class);
-		
+
 		Dept dept = dao.selectByDeptno(10);
-		
-		log.info("deptno = "+dept.getDeptno());
+
+		log.info("deptno = " + dept.getDeptno());
 		log.info("dname = " + dept.getDname());
 		log.info("loc = " + dept.getLoc());
-		
-		if(dept.getEmps() != null)
-		for (Emp e : dept.getEmps()){
-			log.info("empno = + " + e.getEmpno() + " " + e.getEname());
-		}
-		
+
+		if (dept.getEmps() != null)
+			for (Emp e : dept.getEmps()) {
+				log.info("empno = + " + e.getEmpno() + " " + e.getEname());
+			}
+
 	}
-	
+
 	@Test
 	public void test2_SelectByDeptnoWithEmps() throws SQLException {
 		DeptDao dao = factory.getBean(DeptDao.class);
-		
+
 		Dept dept = dao.selectByDeptnoWithEmps(10);
 		assertNotNull(dept);
-		
-		log.info("deptno = "+dept.getDeptno());
+
+		log.info("deptno = " + dept.getDeptno());
 		log.info("dname = " + dept.getDname());
 		log.info("loc = " + dept.getLoc());
-		
+
 	}
-	
+
 	@Test
 	public void test3_SelectAll() {
 		log.info("########################################");
@@ -63,11 +62,32 @@ public class DeptDaoTest {
 		DeptDao dao = factory.getBean(DeptDao.class);
 		List<Dept> list = dao.selectAll();
 		assertNotNull(list);
-		
-		for(Dept d : list){
-			log.info(d.getDeptno() + " " + d.getDname()+" " + d.getLoc());
+
+		for (Dept d : list) {
+			log.info(d.getDeptno() + " " + d.getDname() + " " + d.getLoc());
 		}
-		
+
 	}
 
+	@Test
+	public void test4_SelectAllWithEmps() {
+		DeptDao dao = factory.getBean(DeptDao.class);
+		List<Dept> list = dao.selectAllWithEmps();
+		assertNotNull(list);
+		List<Emp> e = null;
+		for (Dept d : list) {
+			log.info("부서정보");
+			log.info(d.getDeptno() + " " + d.getDname() + " " + d.getLoc());
+			e = d.getEmps();
+			assertNotNull(e);
+			log.info("사원 정보");
+			for (Emp emp : e) {
+				log.info(emp.getEmpno() + " " + emp.getEname() + " "
+						+ emp.getJob() + " " + emp.getMgr() + " "
+						+ emp.getHiredate() + " " + emp.getSal() + " "
+						+ emp.getComm());
+
+			}
+		}
+	}
 }

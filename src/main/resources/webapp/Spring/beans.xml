@@ -32,6 +32,10 @@
 </bean>
 
 
+<!--  <bean id ="deptDao" class ="webapp.dao.impl.MyDeptDao">  -->
+<!-- 	<property name="dataSource" ref="dataSource"/>  -->
+<!--  </bean>  -->
+
 <!--  <bean id ="deptDao" class ="webapp.dao.impl.JdbcDeptDao">  -->
 <!-- 	<property name="dataSource" ref="dataSource"/>  -->
 <!--  </bean>  -->

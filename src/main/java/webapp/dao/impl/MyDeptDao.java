@@ -23,10 +23,10 @@ import webapp.exception.DeptNotFoundException;
 import webapp.model.Dept;
 import webapp.model.Emp;
 
-public class JdbcDeptDao implements DeptDao {
+public class MyDeptDao implements DeptDao {
 
 //	static Logger log = Logger.getLogger(JdbcDeptDao.class);
-	static Log log = LogFactory.getLog(JdbcDeptDao.class);
+	static Log log = LogFactory.getLog(MyDeptDao.class);
 
 	DataSource dataSource;
 
@@ -82,12 +82,9 @@ public class JdbcDeptDao implements DeptDao {
 		try{
 		PreparedStatement pstmt = con.prepareStatement(SELECT_BY_DEPTNO_WITH_EMPS);
 		
-			pstmt.setInt(1, deptno);
-		
-
+		pstmt.setInt(1, deptno);
+	
 		ResultSet rs = pstmt.executeQuery();
-
-		
 
 		while (rs.next()) {
 			if (dept == null) {
@@ -159,39 +156,60 @@ public class JdbcDeptDao implements DeptDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		List<Dept> list = null;
+	
 		try {
-			con = DataSourceUtils.getConnection(dataSource);
+			con = DataSourceUtils.getConnection(dataSource);		
 			pstmt = con.prepareStatement(SELECT_ALL_WITH_EMPS);
 			ResultSet rs = pstmt.executeQuery();
-			
-			Dept dept = null;
-			
+
+			int pastDeptno = 0;
+			List<Emp> emps =null;
 			while(rs.next()){
 				if(list == null)
 					list = new ArrayList<Dept>();
 				
+				Dept d = new Dept();
 				
-				Dept d = new Dept(rs.getInt("deptno"), rs.getString("dname"), rs.getString("loc"));
-				d.setEmps(new ArrayList<Emp>());
-				if(!d.equals(dept)){
-					dept = d;
-					list.add(dept);
+				if(pastDeptno != rs.getInt("deptno")){
+					d.setDeptno(rs.getInt("deptno"));
+					pastDeptno = rs.getInt("deptno");
+					d.setDname(rs.getString("dname"));
+					d.setLoc(rs.getString("loc"));
+					emps =null;
+					list.add(d);
 				}
 				
 				Emp e = new Emp();
 				e.setEmpno(rs.getInt("empno"));
-				e.setEname(rs.getString("ename"));
 				e.setJob(rs.getString("job"));
 				e.setMgr(rs.getInt("mgr"));
 				e.setHiredate(rs.getDate("hiredate"));
 				e.setSal(rs.getFloat("sal"));
 				e.setComm(rs.getFloat("comm"));
-				dept.getEmps().add(e);
+				d.setEmps(emps);
+				emps.add(e);
+				
 			}
+			
 			
 			
 		} catch (SQLException e) {
 			throw new DataRetrievalFailureException("selectAllWithEmps() fail", e);
+		} finally{
+			if(con !=null)
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			if(pstmt !=null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		}
 		
 		

@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="webapp.dao.DeptDao">
-	<select id="selecByDeptno" resultType="webapp.model.Dept"
-		parameterType="int">
+	<select id="selectByDeptno" resultType="webapp.model.Dept" parameterType="int">
 		SELECT *
 		FROM dept
 		WHERE deptno = #{deptno}
 	</select>
-	<select id="selectDeptnoWithEmps" resultMap="deptWithEmps">
+	<select id="selectByDeptnoWithEmps" resultMap="deptWithEmps">
 		SELECT *
-		FROM dept d
-		left JOIN emp e........
-		ON d.deptno = e.deptno
-		where d.deptno = #{deptno}
-
+		FROM dept d LEFT JOIN emp e
+		  ON d.deptno = e.deptno
+		WHERE d.deptno = #{deptno}
 	</select>
-	<select id="selecAll" resultType="webapp.model.Dept">
+	<select id="selectAll" resultType="webapp.model.Dept">
 		SELECT *
 		FROM dept
 	</select>
-
-	<select id="selectAllWithEmps" resultMap="deptAllWithEmps">
-		select d.deptno as deptno,
-				d.dname as dname,
-				  d.loc as loc,
-				e.empno as empno,
-				  e.job as job,
-				  e.mgr as mgr,
-			 e.hiredate as hiredate,
-				  e.sal as sal,
-				 e.comm as comm
-		from dept d left outer join emp e
-		on d.deptno = e.deptno
-		order by d.deptno asc, e.empno asc
+	
+	<select id="selectAllWithEmps" resultMap="deptWithEmps">
+		select d.deptno 	as deptno,
+			   d.dname  	as dname,
+			   d.loc		as loc,
+			   e.empno		as empno,
+			   e.ename		as ename,
+			   e.job		as job,
+			   e.mgr		as mgr,
+			   e.hiredate	as hiredate,
+			   e.sal		as sal,
+			   e.comm		as comm
+		  from dept d left outer join emp e
+		    on d.deptno = e.deptno
+		 order by d.deptno asc, e.empno desc
 	</select>
-
-
+	
 	<resultMap type="webapp.model.Dept" id="deptWithEmps">
-		<id property="deptno" column="deptno" />
-		<result property="dname" column="dname" />
-		<result property="loc" column="loc" />
-		<collection property="emps" ofType="webapp.model.Emp">
-			<id property="empno" column="empno" />
-			<result property="ename" column="ename" />
-			<result property="job" column="job" />
-			<result property="mgr" column="mgr" />
-			<result property="hiredate" column="hiredate" />
-			<result property="sal" column="sal" />
-			<result property="comm" column="sal" />
+		<id property="deptno" column="deptno"/>
+		<result property="dname" column="dname"/>
+		<result property="loc" column="loc"/>
+		<collection property="emps" ofType="webapp.model.Emp" >
+			<id property="empno" column="empno"/>
+			<result property="ename" column="ename"/>
+			<result property="job" column="job"/>
+			<result property="mgr" column="mgr"/>
+			<result property="hiredate" column="hiredate"/>
+			<result property="sal" column="sal"/>
+			<result property="comm" column="comm"/>
 		</collection>
 	</resultMap>
-
-
+	
 </mapper>

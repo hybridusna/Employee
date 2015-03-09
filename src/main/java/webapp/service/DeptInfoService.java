@@ -26,42 +26,44 @@ import webapp.model.Dept;
 
 public class DeptInfoService {
 	DeptDao deptdao;
-	
+
 	DataSource dataSource;
-	
-	
-	public void setDeptDao(DeptDao dao){
+
+	public void setDeptDao(DeptDao dao) {
 		deptdao = dao;
 	}
-	
-	public void setDataSource(DataSource ds){
+
+	public void setDataSource(DataSource ds) {
 		dataSource = ds;
 	}
-	
-	public Dept getDeptInfo(Integer deptno){
-		//All or nothing (트랜잭션의 특징, 하나 예외 발생하면 전체가 시작전으로 돌아감)
-	
+
+	public Dept getDeptInfo(Integer deptno) {
+		// All or nothing (트랜잭션의 특징, 하나 예외 발생하면 전체가 시작전으로 돌아감)
+
 		Dept dept = deptdao.selectByDeptno(deptno);
-		
+
 		return dept;
 	}
-	
-	public Dept getDeptInfoWithEmps(Integer deptno){
-	
+
+	public Dept getDeptInfoWithEmps(Integer deptno) {
+
 		Dept dept = deptdao.selectByDeptnoWithEmps(deptno);
-		
+
 		return dept;
-		
+
 	}
-	
+
 	public List<Dept> getDeptInfoAll() {
 		List<Dept> list = deptdao.selectAll();
-		
-		return list;
-		
-	}
-	
 
-	
+		return list;
+
+	}
+
+	public List<Dept> getDeptInfoAllWithEmps() {
+		List<Dept> list = deptdao.selectAllWithEmps();
+
+		return list;
+	}
 
 }
